@@ -1,5 +1,5 @@
 import express from 'express';
-import { type Product, type Sort, type Store } from '../shared/types.ts';
+import type { Product, Sort, Store } from '../shared/types.ts';
 
 /**
  * Get a random integer between 0 and the max

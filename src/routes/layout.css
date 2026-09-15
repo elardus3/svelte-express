@@ -1,0 +1,17 @@
+body,
+input,
+button { font-family: system-ui, sans-serif }
+
+body {
+  margin: 1rem auto;
+  max-width: 75em;
+  width: 95dvw;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #ccc;
+    background-color: #222;
+  }
+}

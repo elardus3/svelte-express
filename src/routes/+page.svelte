@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { type ApiResult, type Product, sorts, type Sort, stores, type Store } from '../../shared/types.ts';
+  import Card from '$lib/components/Card.svelte';
 
   let loading = $state<boolean>(true);
   let error = $state<string | null>(null);
@@ -80,19 +81,7 @@
     <p>Found {products.length} {products.length >= 2 ? 'products' : 'product'}</p>
     <section>
     {#each products as product (product.id)}
-      <article class={product.qty ? 'available' : null}>
-        <div>{product.name}</div>
-        <div>{product.brand}</div>
-        {#if !store}
-          <div>@ {product.store}</div>
-        {/if}
-        <div>R {(product.price / 100).toFixed(2)}</div>
-        {#if product.qty}
-          <div>{product.qty} {product.qty >= 2 ? 'units' : 'unit'} in stock</div>
-          {:else}
-          <div>Out of stock</div>
-        {/if}
-      </article>
+      <Card product={product} store={store} />
     {/each}
     </section>
   {:else}
@@ -147,15 +136,6 @@
     @media (min-width: 75em) { grid-template-columns: repeat(5, 1fr) }
   }
 
-  article {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    background-color: #ddd;
-
-    &.available { background-color: #c1e1c1 }
-  }
-
   .error { color: red }
 
   .loading {
@@ -178,12 +158,6 @@
   @media (prefers-color-scheme: dark) {
     input,
     button { border: 1px solid #fff }
-
-    article {
-      background-color: #333;
-
-      &.available { background-color: #020 }
-    }
 
     .loading:after {
       border-color: #333;

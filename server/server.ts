@@ -71,7 +71,7 @@ const randomDelay = (req: any, _res: any, next: any) => {
 const randomError = (req: any, res: any, next: any) => {
   if (req.method === 'GET' && req.originalUrl.startsWith(productsUrl)) {
     if (getRandomInt() >= 3) next();
-    else res.status(500).json({result: false, error: 'Randomly simulated error'});
+    else res.status(500).json({ result: false, error: 'Randomly simulated error' });
     return;
   }
 

@@ -23,18 +23,9 @@ This proposal needs more discussion as I'm unsure a standard HTML dropdown will 
 input. As a future improvement, multiple space separated words of search text could be handled, currently a single
 continuous chunk is catered for.
 
-## Debounce search
-
-Instead of calling the endpoint on each keystroke search value change, a debounce throttle tactic will ease off
-unnecessary api calls.
-
 ## UI layout
 
 The user interface layout lend itself to improvement during the next code iteration.
-
-## API route automated tests
-
-I'm unsure whether mocking the API unit tests was done correctly, please review.
 
 ## AI usage
 

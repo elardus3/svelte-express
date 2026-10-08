@@ -38,24 +38,32 @@
     loading = false;
   }
 
+  function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    return (...args: Parameters<T>): void => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func(...args), delay);
+    }
+  }
+
   onMount(() => fetchProducts());
 </script>
 
 <section>
   <p>
     <label for="search">Search</label>
-    <input id="search" placeholder="Search name or brand" bind:value={search} oninput={fetchProducts} />
+    <input id="search" placeholder="Search name or brand" bind:value={search} oninput={debounce(fetchProducts, 400)} disabled={loading} />
   </p>
   <p>
     <label for="store">Store</label>
     {#each stores as s}
-      <button id={s === stores[0] ? 'store' : null} class={store === s ? 'selected' : null} onclick={() => onStore(s)}>{s}</button>
+      <button id={s === stores[0] ? 'store' : null} class={store === s ? 'selected' : null} onclick={() => onStore(s)} disabled={loading}>{s}</button>
     {/each}
   </p>
   <p>
     <label for="sort">Sort</label>
     {#each sorts as s}
-      <button id={s === sorts[0] ? 'sort' : null} class={sort === s ? 'selected' : null} onclick={() => onSort(s)}>{s}</button>
+      <button id={s === sorts[0] ? 'sort' : null} class={sort === s ? 'selected' : null} onclick={() => onSort(s)} disabled={loading}>{s}</button>
     {/each}
   </p>
 </section>
@@ -110,12 +118,18 @@
   button {
     padding: 0.25rem 0.5rem;
     border: 1px solid #999;
+
+    &:disabled { cursor: wait }
   }
 
-  button { transition: .2s }
+  button {
+    transition: .2s;
 
-  button:hover,
-  .selected {
+    &:not(:disabled) { cursor: pointer }
+  }
+
+  button:not(:disabled):hover,
+  button:not(:disabled).selected {
     background-color: blue;
     border-color: blue;
     color: #ccc;

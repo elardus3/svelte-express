@@ -4,6 +4,12 @@
 npm i
 ```
 
+Or, on macos or linux
+
+```sh
+./install.sh
+```
+
 ## Run API (backend server)
 
 ```sh
@@ -16,19 +22,7 @@ Or, on macos or linux
 ./api.sh
 ```
 
-## Run unit tests for server (in new additional terminal)
-
-```sh
-npm run test
-```
-
-Or, on macos or linux
-
-```sh
-./test.sh
-```
-
-## Run browser frontend (in previous test terminal)
+## Run browser frontend (in new additional terminal)
 
 ```sh
 npm run dev
